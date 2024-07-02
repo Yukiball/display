@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.14" />
+    <style>
+      :root {
+        --c-bg: #fff;
+      }
+
+      html.dark {
+        --c-bg: #22272e;
+      }
+
+      html,
+      body {
+        background-color: var(--c-bg);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem('vuepress-color-scheme')
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+        document.documentElement.classList.toggle('dark', true)
+      }
+    </script>
+    <title>学习ing</title><meta name="description" content="My first VuePress Site">
+    <link rel="stylesheet" href="/assets/css/styles.1989dc94.css">
+    <link rel="preload" href="/assets/js/runtime~app.3349e570.js" as="script"><link rel="preload" href="/assets/css/styles.1989dc94.css" as="style"><link rel="preload" href="/assets/js/639.64f68e06.js" as="script"><link rel="preload" href="/assets/js/app.29697722.js" as="script">
+    <link rel="prefetch" href="/assets/js/myPromise.html.1e614be9.js" as="script"><link rel="prefetch" href="/assets/js/index.html.8f66d818.js" as="script"><link rel="prefetch" href="/assets/js/designPattern.html.f88947bb.js" as="script"><link rel="prefetch" href="/assets/js/404.html.1f9f9d3b.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><main class="page"><div class="theme-default-content"><h1>404</h1><blockquote>That&#39;s a Four-Oh-Four.</blockquote><a class="route-link" href="/">Take me home</a></div></main></div><!--[--><!----><!--]--><!--]--></div>
+    <script src="/assets/js/runtime~app.3349e570.js" defer></script><script src="/assets/js/639.64f68e06.js" defer></script><script src="/assets/js/app.29697722.js" defer></script>
+  </body>
+</html>
