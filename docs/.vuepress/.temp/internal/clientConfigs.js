@@ -1,10 +1,10 @@
-import * as clientConfig0 from 'E:/newProject/display/node_modules/@vuepress/plugin-active-header-links/lib/client/config.js'
-import * as clientConfig1 from 'E:/newProject/display/node_modules/@vuepress/plugin-back-to-top/lib/client/config.js'
-import * as clientConfig2 from 'E:/newProject/display/node_modules/@vuepress/plugin-copy-code/lib/client/config.js'
-import * as clientConfig3 from 'E:/newProject/display/node_modules/@vuepress/plugin-medium-zoom/lib/client/config.js'
-import * as clientConfig4 from 'E:/newProject/display/node_modules/@vuepress/plugin-nprogress/lib/client/config.js'
-import * as clientConfig5 from 'E:/newProject/display/node_modules/@vuepress/plugin-theme-data/lib/client/config.js'
-import * as clientConfig6 from 'E:/newProject/display/node_modules/@vuepress/theme-default/lib/client/config.js'
+import * as clientConfig0 from '/Users/yingxu.wang/Desktop/display/node_modules/@vuepress/plugin-active-header-links/lib/client/config.js'
+import * as clientConfig1 from '/Users/yingxu.wang/Desktop/display/node_modules/@vuepress/plugin-back-to-top/lib/client/config.js'
+import * as clientConfig2 from '/Users/yingxu.wang/Desktop/display/node_modules/@vuepress/plugin-copy-code/lib/client/config.js'
+import * as clientConfig3 from '/Users/yingxu.wang/Desktop/display/node_modules/@vuepress/plugin-medium-zoom/lib/client/config.js'
+import * as clientConfig4 from '/Users/yingxu.wang/Desktop/display/node_modules/@vuepress/plugin-nprogress/lib/client/config.js'
+import * as clientConfig5 from '/Users/yingxu.wang/Desktop/display/node_modules/@vuepress/plugin-theme-data/lib/client/config.js'
+import * as clientConfig6 from '/Users/yingxu.wang/Desktop/display/node_modules/@vuepress/theme-default/lib/client/config.js'
 
 export const clientConfigs = [
   clientConfig0,

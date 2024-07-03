@@ -2,19 +2,22 @@
 
 ## Promise 简介
 
-相信大家对 Promise 并不陌生。
-
+相信大家对 Promise 并不陌生。陌生的人请看阮大佬写的[es6权威指南promise](https://es6.ruanyifeng.com/#docs/promise)
 Promise 是异步编程的一种解决方案，可以解决曾经回调地狱等问题。
 Promise 对象有两个特点。一个是对象的状态不受外界影响。另一个是一旦状态改变，就不会再变，任何时候都可以得到这个结果。
+Promise 的实例上拥有很多很多的方法供我们使用，下面我们就来逐步手写一个符合A+规范的 Promise:wink:。
 
-Promise 的实例上拥有很多很多的方法供我们使用，下面我们就来逐步手写一个 Promise。
-
-## 开始手写:wink:
+## 开始手写
 ### 搭框架
-首先我们要知道，除了then、catch、finally是Promise的原型方法以外，其他的所有方法都是它的实例方法。知道了这个我们就可以开始搭建Promise框架了。
+首先我们要知道，除了then、catch、finally是定义在Promise的原型上的方法以外，其他的所有方法都是它的实例方法（可以通过hasOwnProperty获取下试试看～）。知道了这个我们就可以开始搭建Promise框架了。
+
 
 如下所示，我们已经搭建好了一个简易Promise框架。后面所有的改动都将在这个框架上面去填充。
 ```ts
+
+const PENDING = 'pending';
+const FULFILLED = 'fulfilled';
+const REJECTED = 'rejected';
 class myPromise {
   resolve: any;
   reject: any;
@@ -40,4 +43,24 @@ class myPromise {
     console.log("finally");
   }
 }
+```
+
+
+### 开始填充内容
+在填充之前我们要先了解promise的基础用法
+``` ts
+const promise = new Promise(function(resolve, reject) {
+  // ... some code
+
+  if (/* 异步操作成功 */){
+    resolve(value);
+  } else {
+    reject(error);
+  }
+});
+promise.then(function(value) {
+  // success
+}, function(error) {
+  // failure
+});
 ```
