@@ -1,6 +1,7 @@
 import { defaultTheme } from "@vuepress/theme-default";
 import { defineUserConfig } from "vuepress/cli";
 import { webpackBundler } from "@vuepress/bundler-webpack";
+import { gitPlugin } from '@vuepress/plugin-git'
 
 export default defineUserConfig({
   lang: "en-US",
@@ -38,6 +39,10 @@ export default defineUserConfig({
       },
     ],
   }),
-
+  plugins: [
+    gitPlugin({
+      contributors: true
+    }),
+  ],
   bundler: webpackBundler(),
 });
