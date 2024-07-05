@@ -13,92 +13,96 @@
 <li>“reason”是表示承诺被拒绝的原因的值。</li>
 </ul>
 <h2 id="要求" tabindex="-1"><a class="header-anchor" href="#要求"><span>要求</span></a></h2>
-<h3 id="promise状态" tabindex="-1"><a class="header-anchor" href="#promise状态"><span>promise状态</span></a></h3>
+<h3 id="_2-1-promise状态" tabindex="-1"><a class="header-anchor" href="#_2-1-promise状态"><span>2.1 promise状态</span></a></h3>
 <p>承诺必须处于以下三种状态之一：pending, fulfilled, 或 rejected.。</p>
 <ul>
-<li>当处于待处理状态时，承诺：
+<li>2.1.1 当处于pending状态时，promise：
 <ul>
-<li>可能会转变为已完成状态或已拒绝状态。</li>
+<li>2.1.1.1 可以转变为fulfilled 或 rejected状态。</li>
 </ul>
 </li>
-<li>当承诺实现时：
+<li>2.1.2 当promise是fulfilled时：
 <ul>
-<li>不得过渡到任何其他状态。</li>
-<li>必须有一个状态，并且该值不能改变。</li>
+<li>2.1.2.1 不得过渡到任何其他状态。</li>
+<li>2.1.2.2 必须有一个value，并且value不能改变。</li>
 </ul>
 </li>
-<li>当被拒绝时，承诺：
+<li>2.1.3当rejected时，promise：
 <ul>
-<li>不得过渡到任何其他状态。</li>
-<li>必有其理由，且该理由不可改变。
+<li>2.1.3.1 不得过渡到任何其他状态。</li>
+<li>2.1.3.2 必有其reason，且该reason不可改变。
 这里的“不得改变”是指不可变的身份（即===），但并不意味着深度的不变性。</li>
 </ul>
 </li>
 </ul>
-<h3 id="方法then​" tabindex="-1"><a class="header-anchor" href="#方法then​"><span>方法then​</span></a></h3>
+<h3 id="_2-2-方法then​" tabindex="-1"><a class="header-anchor" href="#_2-2-方法then​"><span>2.2 方法then​</span></a></h3>
 <p>承诺必须提供一种then方法来访问其当前或最终的价值或原因。</p>
 <p>承诺的then方法接受两个参数：</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts" data-title="ts"><pre v-pre class="language-typescript"><code><span class="line">promise<span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>onFulfilled<span class="token punctuation">,</span> onRejected<span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><ol>
-<li>onFulfilled和onRejected都是可选参数：</li>
-</ol>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><ul>
+<li>
+<p>2.2.1 onFulfilled和onRejected都是可选参数：</p>
 <ul>
-<li>如果onFulfilled不是一个函数，则必须将其忽略。</li>
-<li>如果onRejected不是一个函数，则必须将其忽略。</li>
+<li>2.2.1.1 如果onFulfilled不是一个函数，则必须将其忽略。</li>
+<li>2.2.1.2 如果onRejected不是一个函数，则必须将其忽略。</li>
 </ul>
-<ol start="2">
-<li>如果onFulfilled是一个函数：</li>
-</ol>
+</li>
+<li>
+<p>2.2.2 如果onFulfilled是一个函数：</p>
 <ul>
-<li>它必须在promise完成后被调用，并以promise的值作为其第一个参数。</li>
-<li>promise在完成之前不能调用它。</li>
-<li>它不能被调用多次。</li>
+<li>2.2.2.1 它必须在promise fulfilled后被调用，并以promise的value作为其第一个参数。</li>
+<li>2.2.2.2 promise在fulfilled之前不能调用它。</li>
+<li>2.2.2.3 它不能被调用多次。</li>
 </ul>
-<ol start="3">
-<li>如果onRejected是一个函数</li>
-</ol>
+</li>
+<li>
+<p>2.2.3 如果onRejected是一个函数</p>
 <ul>
-<li>它必须在promise被拒绝后被调用，并以promise的原因作为其第一个参数。</li>
-<li>promise在被拒绝之前一定不能调用它。</li>
-<li>它不能被调用多次。</li>
+<li>2.2.3.1 它必须在promise被rejected后被调用，并以promise的原因作为其第一个参数。</li>
+<li>2.2.3.2 promise在被rejected之前一定不能调用它。</li>
+<li>2.2.3.3 它不能被调用多次。</li>
 </ul>
-<ol start="4">
-<li>onFulfilled或者在执行上下文堆栈仅包含平台代码onRejected之前不得调用。[ 笔记1 ]。</li>
-<li>onFulfilled并且onRejected必须作为函数调用（即没有this值）。[ 笔记2 ]</li>
-<li>then可能会在同一个承诺上被多次调用。</li>
-</ol>
+</li>
+<li>
+<p>2.2.4 onFulfilled或者在执行上下文堆栈仅包含平台代码onRejected之前不得调用。[ 笔记1 ]。</p>
+</li>
+<li>
+<p>2.2.5 onFulfilled并且onRejected必须作为函数调用（即没有this值）。[ 笔记2 ]</p>
+</li>
+<li>
+<p>2.2.6 then可能会在同一个承诺上被多次调用。</p>
 <ul>
-<li>如果/当promise满足时，所有相应的onFulfilled回调必须按照它们最初调用的顺序执行then。</li>
-<li>如果/当promise被拒绝时，所有相应的onRejected回调必须按照它们最初调用的顺序执行then。</li>
+<li>2.2.6.1 如果/当promise满足时，所有相应的onFulfilled回调必须按照它们最初调用的顺序执行then。</li>
+<li>2.2.6.2 如果/当promise被拒绝时，所有相应的onRejected回调必须按照它们最初调用的顺序执行then。</li>
 </ul>
-<ol start="7">
-<li>then必须返回一个承诺[ 笔记3 ]。</li>
-</ol>
+</li>
+<li>
+<p>2.2.7 then必须返回一个承诺[ 笔记3 ]。</p>
+</li>
+</ul>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts" data-title="ts"><pre v-pre class="language-typescript"><code><span class="line">promise2 <span class="token operator">=</span> promise1<span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>onFulfilled<span class="token punctuation">,</span> onRejected<span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><ul>
-<li>如果onFulfilled或之一onRejected返回值x，则运行 Promise Resolution Procedure [[Resolve]](promise2, x)。</li>
-<li>如果onFulfilled或onRejected抛出异常e，则必须以作为原因而promise2被拒绝。e</li>
-<li>如果onFulfilled不是函数且promise1已满足，则promise2必须以与 相同的值来满足promise1。</li>
-<li>如果onRejected不是一个函数并且promise1被拒绝，则promise2必须以与 相同的原因被拒绝promise1。</li>
+<li>2.2.7.1 如果 onFulfilled 或者 onRejected 返回一个值 x ，则运行下面的 Promise 解决过程：[[Resolve]](Promise2, x)。</li>
+<li>2.2.7.2 如果 onFulfilled 或者 onRejected 抛出一个异常 e ，则 promise2 必须拒绝执行，并返回拒因 e</li>
+<li>2.2.7.3 如果 onFulfilled 不是函数且 promise1 成功执行， promise2 必须成功执行并返回相同的值</li>
+<li>2.2.7.4 如果 onRejected 不是函数且 promise1 拒绝执行， promise2 必须拒绝执行并返回相同的拒因</li>
 </ul>
-<h3 id="承诺解决程序" tabindex="-1"><a class="header-anchor" href="#承诺解决程序"><span>承诺解决程序</span></a></h3>
+<h3 id="_2-3-resolvepromise" tabindex="-1"><a class="header-anchor" href="#_2-3-resolvepromise"><span>2.3 resolvePromise</span></a></h3>
 <p>承诺解析过程是一个抽象操作，以承诺和值作为输入，我们将其表示为[[Resolve]](promise, x)。如果x是一个可然后执行的，它会尝试采用promise的状态x，假设 的x行为至少有点像承诺。否则，它会promise以 的值来实现x。</p>
 <p>这种 thenable 处理方式允许 Promises 实现互操作，只要它们公开符合 Promises/A+ 要求的then方法即可。它还允许 Promises/A+ 实现使用合理的then方法“吸收”不符合要求的实现。</p>
 <p>要运行[[Resolve]](promise, x)，请执行以下步骤：</p>
-<ol>
-<li>如果promise和x指的是同一个对象，promise则以aTypeError为理由拒绝。</li>
-<li>如果x是一个承诺，则采用其状态 [ 笔记4 ]：</li>
-</ol>
+<ul>
+<li>2.3.1 如果promise和x指的是同一个对象，promise则以aTypeError为理由拒绝。</li>
+<li>2.3.2 如果x是一个承诺，则采用其状态 [ 笔记4 ]：
 <ul>
 <li>如果x处于待处理状态，则promise必须保持待处理状态直到x完成或被拒绝。</li>
 <li>如果/当x满足时，promise以相同的值满足。</li>
 <li>如果/当x被拒绝时，promise以相同的理由拒绝。</li>
 </ul>
-<ol start="3">
-<li>否则，如果x是对象或函数，</li>
-</ol>
+</li>
+<li>2.3.3 否则，如果x是对象或函数，
 <ul>
 <li>设then为x.then。[ 笔记5 ]</li>
 <li>如果检索属性x.then导致抛出异常e，则拒绝promise并e给出原因。</li>
@@ -117,9 +121,9 @@
 </li>
 <li>如果then不是函数，则promise用 来满足x。</li>
 </ul>
-<ol start="4">
-<li>如果x不是对象或函数，则promise用 来实现x。</li>
-</ol>
+</li>
+<li>2.3.4 如果x不是对象或函数，则promise用 来实现x。</li>
+</ul>
 <p>如果使用参与循环 thenable 链的 thenable 解析了 Promise，这样[[Resolve]](promise, thenable)finally 的递归性质会导致[[Resolve]](promise, thenable)再次调用，则遵循上述算法将导致无限递归。鼓励但不要求实现检测此类递归并promise以信息TypeError为理由拒绝。[ 笔记6 ]</p>
 <h2 id="笔记" tabindex="-1"><a class="header-anchor" href="#笔记"><span>笔记</span></a></h2>
 <ol>

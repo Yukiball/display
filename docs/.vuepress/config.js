@@ -1,8 +1,7 @@
 import { defaultTheme } from "@vuepress/theme-default";
 import { defineUserConfig } from "vuepress/cli";
 import { webpackBundler } from "@vuepress/bundler-webpack";
-import { gitPlugin } from '@vuepress/plugin-git'
-
+import { gitPlugin } from "@vuepress/plugin-git";
 export default defineUserConfig({
   lang: "en-US",
   port: 8088,
@@ -17,7 +16,7 @@ export default defineUserConfig({
         children: [
           {
             text: "手写Promise",
-            link: "/myPromise",
+            link: "/promise/introPromise.md",
           },
           {
             text: "Promise/A+规范汉化版",
@@ -38,11 +37,31 @@ export default defineUserConfig({
         link: "/designPattern",
       },
     ],
+    sidebar: {
+      "/promise/": [
+        {
+          text: "",
+          // 相对路径会自动追加子路径前缀
+          children: [{
+            text: '简单聊聊promise',
+            link: 'introPromise.md',
+          },{
+            text: '创建myPromise实例',
+            link: 'myPromise.md',
+          },{
+            text: 'myPromise.then',
+            link: 'then.md',
+          }
+          ],
+        },
+      ],
+      "/reference/": "heading",
+    },
   }),
   plugins: [
     gitPlugin({
-      contributors: true
-    }),
+      contributors: true,
+    })
   ],
   bundler: webpackBundler(),
 });

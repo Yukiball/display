@@ -18,64 +18,70 @@ Promise表示异步操作的最终结果。与 Promise 交互的主要方式是�
 - “reason”是表示承诺被拒绝的原因的值。
 
 ## 要求
-### promise状态
+### 2.1 promise状态
 承诺必须处于以下三种状态之一：pending, fulfilled, 或 rejected.。
 
-- 当处于待处理状态时，承诺：
-  - 可能会转变为已完成状态或已拒绝状态。
-- 当承诺实现时：
-  - 不得过渡到任何其他状态。
-  - 必须有一个状态，并且该值不能改变。
-- 当被拒绝时，承诺：
-  - 不得过渡到任何其他状态。
-  - 必有其理由，且该理由不可改变。
+- 2.1.1 当处于pending状态时，promise：
+  - 2.1.1.1 可以转变为fulfilled 或 rejected状态。
+- 2.1.2 当promise是fulfilled时：
+  - 2.1.2.1 不得过渡到任何其他状态。
+  - 2.1.2.2 必须有一个value，并且value不能改变。
+- 2.1.3当rejected时，promise：
+  - 2.1.3.1 不得过渡到任何其他状态。
+  - 2.1.3.2 必有其reason，且该reason不可改变。
 这里的“不得改变”是指不可变的身份（即===），但并不意味着深度的不变性。
 
-### 方法then​
+### 2.2 方法then​
 承诺必须提供一种then方法来访问其当前或最终的价值或原因。
 
 承诺的then方法接受两个参数：
 ``` ts
 promise.then(onFulfilled, onRejected)
 ```
-1. onFulfilled和onRejected都是可选参数：
-  - 如果onFulfilled不是一个函数，则必须将其忽略。
-  - 如果onRejected不是一个函数，则必须将其忽略。
-2. 如果onFulfilled是一个函数：
-  - 它必须在promise完成后被调用，并以promise的值作为其第一个参数。
-  - promise在完成之前不能调用它。
-  - 它不能被调用多次。
-3. 如果onRejected是一个函数
-  - 它必须在promise被拒绝后被调用，并以promise的原因作为其第一个参数。
-  - promise在被拒绝之前一定不能调用它。
-  - 它不能被调用多次。
-4. onFulfilled或者在执行上下文堆栈仅包含平台代码onRejected之前不得调用。[ 笔记1 ]。
-5. onFulfilled并且onRejected必须作为函数调用（即没有this值）。[ 笔记2 ]
-6. then可能会在同一个承诺上被多次调用。
-  - 如果/当promise满足时，所有相应的onFulfilled回调必须按照它们最初调用的顺序执行then。
-  - 如果/当promise被拒绝时，所有相应的onRejected回调必须按照它们最初调用的顺序执行then。
-7. then必须返回一个承诺[ 笔记3 ]。
+- 2.2.1 onFulfilled和onRejected都是可选参数：
+  - 2.2.1.1 如果onFulfilled不是一个函数，则必须将其忽略。
+  - 2.2.1.2 如果onRejected不是一个函数，则必须将其忽略。
+
+- 2.2.2 如果onFulfilled是一个函数：
+  - 2.2.2.1 它必须在promise fulfilled后被调用，并以promise的value作为其第一个参数。
+  - 2.2.2.2 promise在fulfilled之前不能调用它。
+  - 2.2.2.3 它不能被调用多次。
+
+- 2.2.3 如果onRejected是一个函数
+  - 2.2.3.1 它必须在promise被rejected后被调用，并以promise的原因作为其第一个参数。
+  - 2.2.3.2 promise在被rejected之前一定不能调用它。
+  - 2.2.3.3 它不能被调用多次。
+
+- 2.2.4 onFulfilled或者在执行上下文堆栈仅包含平台代码onRejected之前不得调用。[ 笔记1 ]。
+
+- 2.2.5 onFulfilled并且onRejected必须作为函数调用（即没有this值）。[ 笔记2 ]
+
+- 2.2.6 then可能会在同一个承诺上被多次调用。
+  - 2.2.6.1 如果/当promise满足时，所有相应的onFulfilled回调必须按照它们最初调用的顺序执行then。
+  - 2.2.6.2 如果/当promise被拒绝时，所有相应的onRejected回调必须按照它们最初调用的顺序执行then。
+
+- 2.2.7 then必须返回一个承诺[ 笔记3 ]。
 ```ts
 promise2 = promise1.then(onFulfilled, onRejected);
 ```
-  - 如果onFulfilled或之一onRejected返回值x，则运行 Promise Resolution Procedure [[Resolve]](promise2, x)。
-  - 如果onFulfilled或onRejected抛出异常e，则必须以作为原因而promise2被拒绝。e
-  - 如果onFulfilled不是函数且promise1已满足，则promise2必须以与 相同的值来满足promise1。
-  - 如果onRejected不是一个函数并且promise1被拒绝，则promise2必须以与 相同的原因被拒绝promise1。
+  - 2.2.7.1 如果 onFulfilled 或者 onRejected 返回一个值 x ，则运行下面的 Promise 解决过程：[[Resolve]](Promise2, x)。
+  - 2.2.7.2 如果 onFulfilled 或者 onRejected 抛出一个异常 e ，则 promise2 必须拒绝执行，并返回拒因 e
+  - 2.2.7.3 如果 onFulfilled 不是函数且 promise1 成功执行， promise2 必须成功执行并返回相同的值
+  - 2.2.7.4 如果 onRejected 不是函数且 promise1 拒绝执行， promise2 必须拒绝执行并返回相同的拒因
 
-### 承诺解决程序
+### 2.3 resolvePromise
 承诺解析过程是一个抽象操作，以承诺和值作为输入，我们将其表示为[[Resolve]](promise, x)。如果x是一个可然后执行的，它会尝试采用promise的状态x，假设 的x行为至少有点像承诺。否则，它会promise以 的值来实现x。
 
 这种 thenable 处理方式允许 Promises 实现互操作，只要它们公开符合 Promises/A+ 要求的then方法即可。它还允许 Promises/A+ 实现使用合理的then方法“吸收”不符合要求的实现。
 
 要运行[[Resolve]](promise, x)，请执行以下步骤：
 
-1. 如果promise和x指的是同一个对象，promise则以aTypeError为理由拒绝。
-2. 如果x是一个承诺，则采用其状态 [ 笔记4 ]：
+- 2.3.1 如果promise和x指的是同一个对象，promise则以aTypeError为理由拒绝。
+- 2.3.2 如果x是一个承诺，则采用其状态 [ 笔记4 ]：
   - 如果x处于待处理状态，则promise必须保持待处理状态直到x完成或被拒绝。
   - 如果/当x满足时，promise以相同的值满足。
   - 如果/当x被拒绝时，promise以相同的理由拒绝。
-3. 否则，如果x是对象或函数，
+- 2.3.3 否则，如果x是对象或函数，
   - 设then为x.then。[ 笔记5 ]
   - 如果检索属性x.then导致抛出异常e，则拒绝promise并e给出原因。
   - 如果then是函数，则使用xas this、第一个参数resolvePromise和第二个参数调用它rejectPromise，其中：
@@ -86,7 +92,7 @@ promise2 = promise1.then(onFulfilled, onRejected);
       - 如果resolvePromise或rejectPromise已被调用，请忽略它。
       - 否则，promise以e作为理由拒绝。
   - 如果then不是函数，则promise用 来满足x。
-4. 如果x不是对象或函数，则promise用 来实现x。
+- 2.3.4 如果x不是对象或函数，则promise用 来实现x。
 
 如果使用参与循环 thenable 链的 thenable 解析了 Promise，这样[[Resolve]](promise, thenable)finally 的递归性质会导致[[Resolve]](promise, thenable)再次调用，则遵循上述算法将导致无限递归。鼓励但不要求实现检测此类递归并promise以信息TypeError为理由拒绝。[ 笔记6 ]
 
