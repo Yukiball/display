@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 10:44:22
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-08 17:18:02
+ * @LastEditTime: 2024-07-08 17:51:17
  * @FilePath: \display\docs\.vuepress\config.js
  * @Description: 
  * 
@@ -34,18 +34,18 @@ export default defineUserConfig({
           },
         ],
       },
-      {
-        text: "设计模式",
-        link: "/designPattern",
-      },
-      {
-        text: "手写vuex",
-        link: "/designPattern",
-      },
-      {
-        text: "网络安全",
-        link: "/designPattern",
-      },
+      // {
+      //   text: "设计模式",
+      //   link: "/designPattern",
+      // },
+      // {
+      //   text: "手写vuex",
+      //   link: "/designPattern",
+      // },
+      // {
+      //   text: "网络安全",
+      //   link: "/designPattern",
+      // },
     ],
     sidebar: {
       "/promise/": [
@@ -66,6 +66,7 @@ export default defineUserConfig({
         },
       ],
       "/reference/": "heading",
+      "/promiseA+/": "heading",
     },
   }),
   plugins: [
