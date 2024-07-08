@@ -6,3 +6,5 @@
 .vuepress/dist
 
 node_modules
+
+.github\workflows\deploy-docs.yml
