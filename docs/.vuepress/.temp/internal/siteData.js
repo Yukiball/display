@@ -1,1 +1,1 @@
-export const siteData = JSON.parse("{\"base\":\"/\",\"lang\":\"en-US\",\"title\":\"学习ing\",\"description\":\"LOOK AT ME\",\"head\":[],\"locales\":{}}")
+export const siteData = JSON.parse("{\"base\":\"/display/\",\"lang\":\"en-US\",\"title\":\"学习ing\",\"description\":\"LOOK AT ME\",\"head\":[],\"locales\":{}}")

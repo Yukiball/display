@@ -1,3 +1,13 @@
+/*
+ * @Author: yukiball yukiball
+ * @Date: 2024-07-08 10:44:22
+ * @LastEditors: yukiball yukiball
+ * @LastEditTime: 2024-07-08 17:18:02
+ * @FilePath: \display\docs\.vuepress\config.js
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ */
 import { defaultTheme } from "@vuepress/theme-default";
 import { defineUserConfig } from "vuepress/cli";
 import { webpackBundler } from "@vuepress/bundler-webpack";
@@ -7,7 +17,7 @@ export default defineUserConfig({
   port: 8088,
   title: "学习ing",
   description: "LOOK AT ME",
-
+  base:"/display/",
   theme: defaultTheme({
     logo: "/images/logo.jpg",
     navbar: [
