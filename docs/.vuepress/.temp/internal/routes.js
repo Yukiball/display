@@ -1,8 +1,8 @@
-export const redirects = JSON.parse("{\"/promiseA+.html\":\"/promiseA_.html\"}")
+export const redirects = JSON.parse("{}")
 
 export const routes = Object.fromEntries([
   ["/designPattern.html", { loader: () => import(/* webpackChunkName: "designPattern.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/designPattern.html.js"), meta: {"title":"设计模式git"} }],
-  ["/promiseA_.html", { loader: () => import(/* webpackChunkName: "promiseA_.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promiseA_.html.js"), meta: {"title":"Promise/A+"} }],
+  ["/promiseA.html", { loader: () => import(/* webpackChunkName: "promiseA.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promiseA.html.js"), meta: {"title":"Promise/A+"} }],
   ["/", { loader: () => import(/* webpackChunkName: "index.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/index.html.js"), meta: {"title":"Home"} }],
   ["/promise/introPromise.html", { loader: () => import(/* webpackChunkName: "promise_introPromise.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/introPromise.html.js"), meta: {"title":"简单聊聊"} }],
   ["/promise/myPromise.html", { loader: () => import(/* webpackChunkName: "promise_myPromise.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/myPromise.html.js"), meta: {"title":"创建 myPromise 实例"} }],

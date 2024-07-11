@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 10:44:22
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-11 16:45:41
+ * @LastEditTime: 2024-07-11 19:18:07
  * @FilePath: \display\docs\.vuepress\config.js
  * @Description:
  *
@@ -30,7 +30,7 @@ export default defineUserConfig({
           },
           {
             text: "Promise/A+规范汉化版",
-            link: "/promiseA+",
+            link: "/promiseA",
           },
         ],
       },
@@ -74,7 +74,8 @@ export default defineUserConfig({
         },
       ],
       "/reference/": "heading",
-      "/promiseA+/": "heading",
+      "/promiseA": "heading",
+      "/vue/": "heading",
     },
   }),
   plugins: [
