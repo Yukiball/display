@@ -7,6 +7,7 @@ export const routes = Object.fromEntries([
   ["/promise/introPromise.html", { loader: () => import(/* webpackChunkName: "promise_introPromise.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/introPromise.html.js"), meta: {"title":"简单聊聊"} }],
   ["/promise/myPromise.html", { loader: () => import(/* webpackChunkName: "promise_myPromise.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/myPromise.html.js"), meta: {"title":"创建 myPromise 实例"} }],
   ["/promise/then.html", { loader: () => import(/* webpackChunkName: "promise_then.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/then.html.js"), meta: {"title":"promise.then"} }],
+  ["/vue/%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A.html", { loader: () => import(/* webpackChunkName: "vue_双向数据绑定.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/vue/双向数据绑定.html.js"), meta: {"title":""} }],
   ["/404.html", { loader: () => import(/* webpackChunkName: "404.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/404.html.js"), meta: {"title":""} }],
 ]);
 

@@ -2,11 +2,11 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 10:44:22
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-08 17:51:17
+ * @LastEditTime: 2024-07-11 16:45:41
  * @FilePath: \display\docs\.vuepress\config.js
- * @Description: 
- * 
- * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2024 by ${git_name_email}, All Rights Reserved.
  */
 import { defaultTheme } from "@vuepress/theme-default";
 import { defineUserConfig } from "vuepress/cli";
@@ -17,9 +17,9 @@ export default defineUserConfig({
   port: 8088,
   title: "学习ing",
   description: "LOOK AT ME",
-  base:"/display/",
+  base: "/display/",
   theme: defaultTheme({
-    logo: "/images/logo.jpg",
+    logo: "/images/logo.png",
     navbar: [
       {
         text: "Promise",
@@ -38,10 +38,15 @@ export default defineUserConfig({
       //   text: "设计模式",
       //   link: "/designPattern",
       // },
-      // {
-      //   text: "手写vuex",
-      //   link: "/designPattern",
-      // },
+      {
+        text: "手撕vue",
+        children: [
+          {
+            text: "双向数据绑定",
+            link: "/vue/双向数据绑定.md",
+          },
+        ],
+      },
       // {
       //   text: "网络安全",
       //   link: "/designPattern",
@@ -52,16 +57,19 @@ export default defineUserConfig({
         {
           text: "",
           // 相对路径会自动追加子路径前缀
-          children: [{
-            text: '简单聊聊promise',
-            link: 'introPromise.md',
-          },{
-            text: '创建myPromise实例',
-            link: 'myPromise.md',
-          },{
-            text: 'myPromise.then',
-            link: 'then.md',
-          }
+          children: [
+            {
+              text: "简单聊聊promise",
+              link: "introPromise.md",
+            },
+            {
+              text: "创建myPromise实例",
+              link: "myPromise.md",
+            },
+            {
+              text: "myPromise.then",
+              link: "then.md",
+            },
           ],
         },
       ],
@@ -71,8 +79,8 @@ export default defineUserConfig({
   }),
   plugins: [
     gitPlugin({
-      contributors: true,
-    })
+      contributors: false,
+    }),
   ],
   bundler: webpackBundler(),
 });

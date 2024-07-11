@@ -1,10 +1,13 @@
 ---
 home: true
 title: Home
-heroImage: /images/logo.jpg
+heroImage: /images/logo.png
 actions:
   - text: My Promise
     link: /promise/introPromise.md
+    type: primary
+  - text: My Vue
+    link: /vue/双向数据绑定.md
     type: primary
 
 
