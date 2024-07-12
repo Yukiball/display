@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-11 16:08:53
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-12 18:12:05
+ * @LastEditTime: 2024-07-12 18:34:54
  * @FilePath: \display\docs\vue\双向数据绑定.md
  * @Description:
  *
@@ -121,7 +121,7 @@
 <span class="line"><span class="token function">action</span><span class="token punctuation">(</span>changeInput<span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="总结" tabindex="-1"><a class="header-anchor" href="#总结"><span>总结</span></a></h3>
-<p>调用Object.defineProperty() 给对象的get和set中添加一些方法，做到“在 get 中进行依赖收集，记录是哪个函数在用我；在 set 中派发更新，执行用我的函数”这样双向数据绑定就成功了~</p>
+<p>调用Object.defineProperty() 给对象的get和set中添加一些方法，做到“在 get 中进行依赖收集，记录是哪个函数在用我；在 set 中派发更新，执行用我的函数”这样双向数据绑定就成功了~当然vue中肯定不会这么简单，还需要考虑对象的深层遍历等等很多东西，我们这里只是依照他的思路实现了一个最最简单的双向数据绑定~</p>
 <CodeGroup>
 <CodeGroupItem title="myVue.js">
 <div class="language-javascript line-numbers-mode" data-highlighter="prismjs" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="line"><span class="token keyword">const</span> someBody <span class="token operator">=</span> <span class="token punctuation">{</span></span>
