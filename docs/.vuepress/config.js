@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 10:44:22
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-11 19:18:07
+ * @LastEditTime: 2024-07-12 18:13:11
  * @FilePath: \display\docs\.vuepress\config.js
  * @Description:
  *
@@ -81,6 +81,7 @@ export default defineUserConfig({
   plugins: [
     gitPlugin({
       contributors: false,
+      updatedTime: true,
     }),
   ],
   bundler: webpackBundler(),

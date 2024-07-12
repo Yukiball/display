@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-11 16:08:53
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-11 19:07:08
+ * @LastEditTime: 2024-07-12 18:12:05
  * @FilePath: \display\docs\vue\双向数据绑定.md
  * @Description:
  *
@@ -13,7 +13,7 @@
 <h2 id="vue2-0" tabindex="-1"><a class="header-anchor" href="#vue2-0"><span>vue2.0</span></a></h2>
 <p>从网上查询 vue 双向数据绑定的实现，可以查到这种答案“通过结合对象的 <code v-pre>getter</code> 和 <code v-pre>setter</code>，以及 <code v-pre>Object.defineProperty()</code> 方法来实现的。具体来说，当你在 Vue 实例中使用 <code v-pre>v-model</code> 指令时，Vue 会在内部创建一个指令相关的 <code v-pre>watcher</code> 对象，用来追踪数据的变化。同时，Vue 还会利用 <code v-pre>Object.defineProperty()</code> 来将数据对象的属性转化为 getter 和 setter，从而在数据发生变化时，能够通知到相关的视图更新，以及在视图中输入框内容变化时，更新到数据层。”（来源于 ChatGPT3.5）</p>
 <p>(⊙o⊙)…回答的很好，但是 watcher 到底怎么追踪数据的变化呢？ 又是怎么让dom数据更新的呢？带着这些疑问我们就来手写一个简单的双向数据绑定。</p>
-<p><a href="#%E6%80%BB%E7%BB%93">直接看所有代码点这里</a></p>
+<p><a href="#%E6%80%BB%E7%BB%93">着急看代码总结点这里</a></p>
 <h3 id="step-one" tabindex="-1"><a class="header-anchor" href="#step-one"><span>Step One：</span></a></h3>
 <p>我们先在 js 里面定义改变 dom 结构数据的方法。创建 watcher 方法用来执行 Object.defineProperty()修改对象的 get 和 set，用 for 循环去遍历我们定义的对象，这样在两个 changeXXX 方法触发的时候就能触发我们在 get，set 中新定义的方法。</p>
 <CodeGroup>

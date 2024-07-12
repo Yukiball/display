@@ -2,6 +2,8 @@
 
 then 方法可以接受两个回调函数当参数。第一个是 Promise 对象的状态变为 resolved 时调用，第二个是 Promise 对象的状态变为 rejected 时调用。这两个函数都是可选的，不一定要提供。但它们都接受 Promise 对象传出的值作为参数。
 
+[着急看代码总结点这里](#总结)
+
 then 的使用方法有很多种,我们要实现 then 就要满足以下几种使用方式。
 :::: code-group
 ::: code-group-item 基本使用
@@ -252,10 +254,10 @@ class myPromise {
   private handler: Array<any> = [];
   // ……省略……
   private changeState(state: string, result: any) {
-      if (this.state !== PENDING) return;
-      this.state = state;
-      this.result = result;
-      // 异步情况走这里
+    if (this.state !== PENDING) return;
+    this.state = state;
+    this.result = result;
+    // 异步情况走这里
     this.doSomeThing();
   }
   private isFunc(cb: any, resolve: any, reject: any) {
@@ -271,7 +273,7 @@ class myPromise {
     }
   }
   private doSomeThing() {
-    if(this.state === PENDING) return;
+    if (this.state === PENDING) return;
     while (this.handler.length) {
       const { onResolved, onRejected, resolve, reject } = this.handler.shift();
       if (this.state === PENDING) return;
@@ -324,7 +326,7 @@ export class myPromise {
     if (this.state !== PENDING) return;
     this.state = state;
     this.result = result;
-      // 异步情况走这里
+    // 异步情况走这里
     this.doSomeThing();
   }
   private isFunc(cb: any, resolve: any, reject: any) {
@@ -342,7 +344,7 @@ export class myPromise {
     }
   }
   private doSomeThing() {
-    if(this.state === PENDING) return;
+    if (this.state === PENDING) return;
     while (this.handler.length) {
       const { onResolved, onRejected, resolve, reject } = this.handler.shift();
       if (this.state === PENDING) return;
@@ -366,5 +368,120 @@ export class myPromise {
 :::
 ::::
 
-## 当then里面传入的是一个promise
-想知道传入的是不是promise
+## 当 then 里面传入的是一个 promise
+
+想知道传入的是不是 promise 就需要一个函数来判断，根据 promise 的 A+规范我们可以知道“promise 是一个具有 then 方法的对象或函数”，根据这句话我们就可以写出判断函数
+
+```ts
+private isPromiseLike(fn: any) {
+    return (
+      fn !== null &&
+      (typeof fn === "function" || typeof fn === "object") &&
+      typeof fn.then === "function"
+    );
+  }
+
+// 修改isFunc
+private isFunc(cb: any, resolve: any, reject: any) {
+    if (typeof cb === FUNC) {
+      // 回调是函数的时候
+      try {
+        const value = cb(this.result);
+      if(this.isPromiseLike(value)){
+          value(resolve,reject)
+      }else{
+        resolve(value);
+      }
+      } catch (error) {
+        reject(error);
+      }
+    } else {
+      // 回调不是函数的时候
+      this.state === FULFILLED ? resolve(this.result) : reject(this.result);
+    }
+  }
+```
+
+## 总结
+
+最后，我们将 then PENDING 和 FUlFILLED 时的方法都放到一个微任务里面里面执行就可以了
+
+```ts
+const PENDING = "pending";
+const FULFILLED = "fulfilled";
+const REJECTED = "rejected";
+const FUNC = "function";
+
+export class myPromise {
+  private state: string = PENDING;
+  private result: any = undefined;
+  private handler: Array<any> = [];
+  private resolve: (data: any) => any;
+  private reject: (reson: any) => any;
+  constructor(func: (res: any, rej: any) => void) {
+    this.resolve = (data: any) => {
+      this.changeState(FULFILLED, data);
+    };
+    this.reject = (reson: any) => {
+      this.changeState(REJECTED, reson);
+    };
+    try {
+      func(this.resolve, this.reject);
+    } catch (error) {
+      this.reject(error);
+    }
+  }
+  private changeState(state: string, result: any) {
+    if (this.state !== PENDING) return;
+    this.state = state;
+    this.result = result;
+    // 异步情况走这里
+    this.doSomeThing();
+  }
+  private isFunc(cb: any, resolve: any, reject: any) {
+    queueMicrotask(() => {
+      if (typeof cb === FUNC) {
+        try {
+          const value = cb(this.result);
+          if (this.isPromiseLike(value)) {
+            value.then(resolve, reject);
+          } else {
+            resolve(value);
+          }
+        } catch (error) {
+          reject(error);
+        }
+      } else {
+        // 对应的回调不是函数的时候
+        this.state === FULFILLED ? resolve(this.result) : reject(this.result);
+      }
+    });
+  }
+  private isPromiseLike(fn: any) {
+    return (
+      fn !== null &&
+      (typeof fn === "function" || typeof fn === "object") &&
+      typeof fn.then === "function"
+    );
+  }
+  private doSomeThing() {
+    if (this.state === PENDING) return;
+    while (this.handler.length) {
+      const { onResolved, onRejected, resolve, reject } = this.handler.shift();
+      if (this.state === PENDING) return;
+      if (this.state === FULFILLED) {
+        this.isFunc(onResolved, resolve, reject);
+      } else {
+        this.isFunc(onRejected, resolve, reject);
+      }
+    }
+  }
+  then(onResolved: any, onRejected: any) {
+    return new myPromise((resolve: any, reject: any) => {
+      this.handler.push({ onResolved, onRejected, resolve, reject });
+      // 同步情况直接这里
+      this.doSomeThing();
+    });
+  }
+}
+```
