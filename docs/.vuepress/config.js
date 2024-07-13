@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 10:44:22
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-12 18:13:11
+ * @LastEditTime: 2024-07-13 21:00:55
  * @FilePath: \display\docs\.vuepress\config.js
  * @Description:
  *
@@ -39,7 +39,7 @@ export default defineUserConfig({
       //   link: "/designPattern",
       // },
       {
-        text: "手撕vue",
+        text: "手写vue",
         children: [
           {
             text: "双向数据绑定",
@@ -73,9 +73,19 @@ export default defineUserConfig({
           ],
         },
       ],
-      "/reference/": "heading",
       "/promiseA": "heading",
-      "/vue/": "heading",
+      "/vue/": [
+        {
+          text: "",
+          // 相对路径会自动追加子路径前缀
+          children: [
+            {
+              text: "双向数据绑定",
+              link: "双向数据绑定.md",
+            },
+          ],
+        },
+      ],
     },
   }),
   plugins: [
