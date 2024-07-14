@@ -23,22 +23,21 @@ const REJECTED = "rejected";
 class myPromise {
   private state: string = PENDING;
   private result: any = undefined;
-  private resolve: (data: any) => any;
-  private reject: (reson: any) => any;
+  #resolve: (data: any) => any;
+  #reject: (reson: any) => any;
   constructor(func: (res: () => {}, rej: () => {}) => void) {
-    this.resolve = (data: any) => {
+    this.#resolve = (data: any) => {
       //A+规定当promise实现时不得过渡到任何其他状态，必须有一个状态，并且该值不能改变
       if (this.state !== PENDING) return;
       this.state = FULFILLED;
       this.result = data;
     };
-    this.reject = (reson: any) => {
+    this.#reject = (reson: any) => {
       if (this.state !== PENDING) return;
       this.state = REJECTED;
       this.result = reson;
     };
-    func(this.resolve, this.reject);
-    console.log(this.state, this.result);
+    func(this.#resolve, this.#reject);
   }
 }
 ```
@@ -69,19 +68,19 @@ const REJECTED = "rejected";
 class myPromise {
   private state: string = PENDING;
   private result: any = undefined;
-  private resolve: (data: any) => any;
-  private reject: (reson: any) => any;
+  #resolve: (data: any) => any;
+  #reject: (reson: any) => any;
   constructor(func: (res: any, rej: any) => void) {
-    this.resolve = (data: any) => {
+    this.#resolve = (data: any) => {
       this.changeState(FULFILLED, data);
     };
-    this.reject = (reson: any) => {
+    this.#reject = (reson: any) => {
       this.changeState(REJECTED, reson);
     };
     try {
-      func(this.resolve, this.reject);
+      func(this.#resolve, this.#reject);
     } catch (error) {
-      this.reject(error);
+      this.#reject(error);
     }
   }
   private changeState(state: string, result: any) {

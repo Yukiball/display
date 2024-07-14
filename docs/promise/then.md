@@ -1,4 +1,4 @@
-# promise.then
+# Promise.then
 
 then 方法可以接受两个回调函数当参数。第一个是 Promise 对象的状态变为 resolved 时调用，第二个是 Promise 对象的状态变为 rejected 时调用。这两个函数都是可选的，不一定要提供。但它们都接受 Promise 对象传出的值作为参数。
 
@@ -70,10 +70,10 @@ promise
 //  2.2.1.2 如果onRejected不是一个函数，则必须将其忽略。
 const FUNC = "function";
 
-class myPromise {
+class MyPromise {
   // ……省略……
   then(onResolved: any, onRejected: any) {
-    return new myPromise((resolve: any, reject: any) => {
+    return new MyPromise((resolve: any, reject: any) => {
       if (this.state === PENDING) return;
       if (this.state === FULFILLED) {
         if (typeof onResolved === FUNC) {
@@ -108,7 +108,7 @@ class myPromise {
 ::: code-group-item <提炼一下重复代码>
 
 ```ts
-class myPromise {
+class MyPromise {
   // ……省略……
   private isFunc(cb: any, resolve: any, reject: any) {
     if (typeof cb === FUNC) {
@@ -123,7 +123,7 @@ class myPromise {
     }
   }
   then(onResolved: any, onRejected: any) {
-    return new myPromise((resolve: any, reject: any) => {
+    return new MyPromise((resolve: any, reject: any) => {
       if (this.state === PENDING) return;
       if (this.state === FULFILLED) {
         this.isFunc(onResolved, resolve, reject);
@@ -142,22 +142,22 @@ class myPromise {
 const PENDING = "pending";
 const FULFILLED = "fulfilled";
 const REJECTED = "rejected";
-class myPromise {
+class MyPromise {
   private state: string = PENDING;
   private result: any = undefined;
-  private resolve: (data: any) => any;
-  private reject: (reson: any) => any;
+  #resolve: (data: any) => any;
+  #reject: (reson: any) => any;
   constructor(func: (res: any, rej: any) => void) {
-    this.resolve = (data: any) => {
+    this.#resolve = (data: any) => {
       this.changeState(FULFILLED, data);
     };
-    this.reject = (reson: any) => {
+    this.#reject = (reson: any) => {
       this.changeState(REJECTED, reson);
     };
     try {
-      func(this.resolve, this.reject);
+      func(this.#resolve, this.#reject);
     } catch (error) {
-      this.reject(error);
+      this.#reject(error);
     }
   }
   private changeState(state: string, result: any) {
@@ -179,7 +179,7 @@ class myPromise {
     }
   }
   then(onResolved: any, onRejected: any) {
-    return new myPromise((resolve: any, reject: any) => {
+    return new MyPromise((resolve: any, reject: any) => {
       if (this.state === PENDING) return;
       if (this.state === FULFILLED) {
         this.isFunc(onResolved, resolve, reject);
@@ -197,7 +197,7 @@ class myPromise {
 ::: details 浏览器调试代码，可自行尝试
 
 ```ts
-let p = new myPromise((res, rej) => {
+let p = new MyPromise((res, rej) => {
   res(333);
 });
 p.then(
@@ -244,14 +244,14 @@ let p = new Promise((res, rej) => {
 });
 ```
 
-我们需要等到 promise 状态从 pending 发生改变时再让 then 方法里面的方法执行。也就是在 changeState 时去执行 the 内部 new myPromise 里面的一系列操作，这就需要我们将传入的 onResolved,onRejected, resolve, reject 存起来。再因为 then 可以多次调用，所以要将传入的值存为一个数组
+我们需要等到 promise 状态从 pending 发生改变时再让 then 方法里面的方法执行。也就是在 changeState 时去执行 the 内部 new MyPromise 里面的一系列操作，这就需要我们将传入的 onResolved,onRejected, resolve, reject 存起来。再因为 then 可以多次调用，所以要将传入的值存为一个数组
 :::: code-group
 ::: code-group-item <修改原有方法>
 
 ```ts
-class myPromise {
+class MyPromise {
   // 增加
-  private handler: Array<any> = [];
+  #handler: Array<any> = [];
   // ……省略……
   private changeState(state: string, result: any) {
     if (this.state !== PENDING) return;
@@ -274,8 +274,8 @@ class myPromise {
   }
   private doSomeThing() {
     if (this.state === PENDING) return;
-    while (this.handler.length) {
-      const { onResolved, onRejected, resolve, reject } = this.handler.shift();
+    while (this.#handler.length) {
+      const { onResolved, onRejected, resolve, reject } = this.#handler.shift();
       if (this.state === PENDING) return;
       if (this.state === FULFILLED) {
         this.isFunc(onResolved, resolve, reject);
@@ -285,8 +285,8 @@ class myPromise {
     }
   }
   then(onResolved: any, onRejected: any) {
-    return new myPromise((resolve: any, reject: any) => {
-      this.handler.push({ onResolved, onRejected, resolve, reject });
+    return new MyPromise((resolve: any, reject: any) => {
+      this.#handler.push({ onResolved, onRejected, resolve, reject });
       // 同步情况直接这里
       this.doSomeThing();
     });
@@ -303,23 +303,23 @@ const FULFILLED = "fulfilled";
 const REJECTED = "rejected";
 const FUNC = "function";
 
-export class myPromise {
+export class MyPromise {
   private state: string = PENDING;
   private result: any = undefined;
-  private handler: Array<any> = [];
-  private resolve: (data: any) => any;
-  private reject: (reson: any) => any;
+  #handler: Array<any> = [];
+  #resolve: (data: any) => any;
+  #reject: (reson: any) => any;
   constructor(func: (res: any, rej: any) => void) {
-    this.resolve = (data: any) => {
+    this.#resolve = (data: any) => {
       this.changeState(FULFILLED, data);
     };
-    this.reject = (reson: any) => {
+    this.#reject = (reson: any) => {
       this.changeState(REJECTED, reson);
     };
     try {
-      func(this.resolve, this.reject);
+      func(this.#resolve, this.#reject);
     } catch (error) {
-      this.reject(error);
+      this.#reject(error);
     }
   }
   private changeState(state: string, result: any) {
@@ -345,8 +345,8 @@ export class myPromise {
   }
   private doSomeThing() {
     if (this.state === PENDING) return;
-    while (this.handler.length) {
-      const { onResolved, onRejected, resolve, reject } = this.handler.shift();
+    while (this.#handler.length) {
+      const { onResolved, onRejected, resolve, reject } = this.#handler.shift();
       if (this.state === PENDING) return;
       if (this.state === FULFILLED) {
         this.isFunc(onResolved, resolve, reject);
@@ -356,8 +356,8 @@ export class myPromise {
     }
   }
   then(onResolved: any, onRejected: any) {
-    return new myPromise((resolve: any, reject: any) => {
-      this.handler.push({ onResolved, onRejected, resolve, reject });
+    return new MyPromise((resolve: any, reject: any) => {
+      this.#handler.push({ onResolved, onRejected, resolve, reject });
       // 同步情况直接这里
       this.doSomeThing();
     });
@@ -374,7 +374,7 @@ export class myPromise {
 
 ```ts
 private isPromiseLike(fn: any) {
-    return (
+    return !!(
       fn !== null &&
       (typeof fn === "function" || typeof fn === "object") &&
       typeof fn.then === "function"
@@ -412,23 +412,23 @@ const FULFILLED = "fulfilled";
 const REJECTED = "rejected";
 const FUNC = "function";
 
-export class myPromise {
+export class MyPromise {
   private state: string = PENDING;
   private result: any = undefined;
-  private handler: Array<any> = [];
-  private resolve: (data: any) => any;
-  private reject: (reson: any) => any;
+  #handler: Array<any> = [];
+  #resolve: (data: any) => any;
+  #reject: (reson: any) => any;
   constructor(func: (res: any, rej: any) => void) {
-    this.resolve = (data: any) => {
+    this.#resolve = (data: any) => {
       this.changeState(FULFILLED, data);
     };
-    this.reject = (reson: any) => {
+    this.#reject = (reson: any) => {
       this.changeState(REJECTED, reson);
     };
     try {
-      func(this.resolve, this.reject);
+      func(this.#resolve, this.#reject);
     } catch (error) {
-      this.reject(error);
+      this.#reject(error);
     }
   }
   private changeState(state: string, result: any) {
@@ -458,7 +458,7 @@ export class myPromise {
     });
   }
   private isPromiseLike(fn: any) {
-    return (
+    return !!(
       fn !== null &&
       (typeof fn === "function" || typeof fn === "object") &&
       typeof fn.then === "function"
@@ -466,8 +466,8 @@ export class myPromise {
   }
   private doSomeThing() {
     if (this.state === PENDING) return;
-    while (this.handler.length) {
-      const { onResolved, onRejected, resolve, reject } = this.handler.shift();
+    while (this.#handler.length) {
+      const { onResolved, onRejected, resolve, reject } = this.#handler.shift();
       if (this.state === PENDING) return;
       if (this.state === FULFILLED) {
         this.isFunc(onResolved, resolve, reject);
@@ -477,8 +477,8 @@ export class myPromise {
     }
   }
   then(onResolved: any, onRejected: any) {
-    return new myPromise((resolve: any, reject: any) => {
-      this.handler.push({ onResolved, onRejected, resolve, reject });
+    return new MyPromise((resolve: any, reject: any) => {
+      this.#handler.push({ onResolved, onRejected, resolve, reject });
       // 同步情况直接这里
       this.doSomeThing();
     });

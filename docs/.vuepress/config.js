@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 10:44:22
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-13 21:00:55
+ * @LastEditTime: 2024-07-14 20:26:16
  * @FilePath: \display\docs\.vuepress\config.js
  * @Description:
  *
@@ -67,8 +67,16 @@ export default defineUserConfig({
               link: "myPromise.md",
             },
             {
-              text: "myPromise.then",
+              text: "then",
               link: "then.md",
+            },
+            {
+              text: "catch&&finally",
+              link: "catch&&finally.md",
+            },
+            {
+              text: "resolve&&reject",
+              link: "resolve&&reject.md",
             },
           ],
         },
