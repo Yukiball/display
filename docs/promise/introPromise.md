@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 17:24:52
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-15 02:00:53
+ * @LastEditTime: 2024-07-15 02:01:12
  * @FilePath: \display\docs\promise\introPromise.md
  * @Description: 
  * 
