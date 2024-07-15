@@ -1,9 +1,10 @@
-export const redirects = JSON.parse("{\"/promise/catch&&finally.html\":\"/promise/catch__finally.html\",\"/promise/resolve&&reject.html\":\"/promise/resolve__reject.html\"}")
+export const redirects = JSON.parse("{\"/promise/all&&allSettled.html\":\"/promise/all__allSettled.html\",\"/promise/catch&&finally.html\":\"/promise/catch__finally.html\",\"/promise/resolve&&reject.html\":\"/promise/resolve__reject.html\"}")
 
 export const routes = Object.fromEntries([
   ["/designPattern.html", { loader: () => import(/* webpackChunkName: "designPattern.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/designPattern.html.js"), meta: {"title":"设计模式git"} }],
   ["/promiseA.html", { loader: () => import(/* webpackChunkName: "promiseA.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promiseA.html.js"), meta: {"title":"Promise/A+"} }],
   ["/", { loader: () => import(/* webpackChunkName: "index.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/index.html.js"), meta: {"title":"Home"} }],
+  ["/promise/all__allSettled.html", { loader: () => import(/* webpackChunkName: "promise_all__allSettled.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/all__allSettled.html.js"), meta: {"title":""} }],
   ["/promise/catch__finally.html", { loader: () => import(/* webpackChunkName: "promise_catch__finally.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/catch__finally.html.js"), meta: {"title":""} }],
   ["/promise/introPromise.html", { loader: () => import(/* webpackChunkName: "promise_introPromise.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/introPromise.html.js"), meta: {"title":"简单聊聊"} }],
   ["/promise/myPromise.html", { loader: () => import(/* webpackChunkName: "promise_myPromise.html" */"E:/newProject/display/docs/.vuepress/.temp/pages/promise/myPromise.html.js"), meta: {"title":"创建 myPromise 实例"} }],

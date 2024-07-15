@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 10:44:22
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-14 20:26:16
+ * @LastEditTime: 2024-07-16 00:06:02
  * @FilePath: \display\docs\.vuepress\config.js
  * @Description:
  *
@@ -77,6 +77,10 @@ export default defineUserConfig({
             {
               text: "resolve&&reject",
               link: "resolve&&reject.md",
+            },
+            {
+              text: "all&&allSettled",
+              link: "all&&allSettled.md",
             },
           ],
         },
