@@ -17,7 +17,8 @@
 2. 数组中参数都是 Promise 实例，如果不是，就会先调 Promise.resolve 方法，将参数转为 Promise 实例，再进一步处理
 3. all 方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。
 4. 只有参数的状态都变成 fulfilled，新 promise 的状态才会变成 fulfilled,此时参数的返回值组成一个数组，传递给 p 的回调函数。
-5. 只要参数之中有一个被 rejected，新 Promise 的状态就变成 rejected，此时第一个被 reject 的实例的返回值，会传递给 p 的回调函数
+5. 只要参数之中有一个被 rejected，新 Promise 的状态就变成 rejected，此时第一个被 reject 的实例的返回值，会传递给 p 的回调函
+数作为参数
 
 ```js
 Promise.all = function (proms) {

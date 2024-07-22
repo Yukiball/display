@@ -2,7 +2,7 @@
  * @Author: yukiball yukiball
  * @Date: 2024-07-08 10:44:22
  * @LastEditors: yukiball yukiball
- * @LastEditTime: 2024-07-16 00:06:02
+ * @LastEditTime: 2024-07-22 11:32:28
  * @FilePath: \display\docs\.vuepress\config.js
  * @Description:
  *
@@ -64,7 +64,7 @@ export default defineUserConfig({
             },
             {
               text: "创建myPromise实例",
-              link: "myPromise.md",
+              link: "创建myPromise实例.md",
             },
             {
               text: "then",
@@ -81,6 +81,14 @@ export default defineUserConfig({
             {
               text: "all&&allSettled",
               link: "all&&allSettled.md",
+            },
+            {
+              text: "any",
+              link: "any.md",
+            },
+            {
+              text: "myPromise完成",
+              link: "myPromise.md",
             },
           ],
         },
